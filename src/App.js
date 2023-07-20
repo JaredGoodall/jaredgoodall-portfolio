@@ -45,14 +45,14 @@ function App() {
                   className={isHovered ? 'fade-out' : ''}
                   style={{ position: 'relative' }}
                 >
-                  <a href='https://www.goobdoobs.com'>
+                  <a href='https://youtu.be/BNig6xG36i4'>
                     <img
                       src={require('./images/3.png')}
                       className='image-element'
                       alt='goob doobs component'
                     />
                   </a>
-                  <a href='https://www.goobdoobs.com'>
+                  <a href='https://youtu.be/BNig6xG36i4'>
                     <img
                       src={require('./images/3-highlight.png')}
                       className='image-element overlay'
