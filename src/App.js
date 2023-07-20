@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './App.css';
+import {isMobile} from 'react-device-detect';
 
 function App() {
   const [isHovered, setIsHovered] = useState(false);
@@ -14,7 +15,7 @@ function App() {
 
   return (
     <div className='App'>
-      <div className='components'>
+      <div className={isMobile ? 'mobile components' : 'components'}>
         <table className='no-border'>
           <tbody>
             <tr className='layer'>
@@ -174,20 +175,16 @@ function App() {
                   className={isHovered ? 'fade-out' : ''}
                   style={{ position: 'relative' }}
                 >
-                  <a href='https://www.goobdoobs.com'>
-                    <img
-                      src={require('./images/12.png')}
-                      className='image-element'
-                      alt='goob doobs component'
-                    />
-                  </a>
-                  <a href='https://www.goobdoobs.com'>
-                    <img
-                      src={require('./images/12-highlight.png')}
-                      className='image-element overlay'
-                      alt='goob doobs highlight component'
-                    />
-                  </a>
+                  <img
+                    src={require('./images/12.png')}
+                    className='image-element'
+                    alt='goob doobs component'
+                  />
+                  <img
+                    src={require('./images/12-highlight.png')}
+                    className='image-element overlay'
+                    alt='goob doobs highlight component'
+                  />
                 </div>
               </td>
               <td>
