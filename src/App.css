@@ -1,38 +1,90 @@
-.App {
-  text-align: center;
+html, body {
+  height: 100%;
+  width: 100%;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+body {
+  margin: 0;
+  padding: 0;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.image-element {
+  width: 100%;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.components {
+  min-width: 100vw;
+  width: 100vw; /* Change this to your desired width */
+  height: 100vh; /* Change this to your desired height */
+  overflow: hidden; /* Hide any content that overflows the container */
+  position: relative; 
+}
+
+.components img {
+  overflow-x: hidden;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center; /* Center the image contents */
+}
+
+.layer {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  width:100vw;
+  min-width: 1350px;
+  padding: 0;
+  margin: 0;
 }
 
-.App-link {
-  color: #61dafb;
+.no-border {
+  border-collapse: collapse;
+  border: none;
+  /* Remove vertical spacing between rows */
+  border-spacing: 0;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+td {
+  padding: 0;
+  background-color: red;
+  margin: 0;
+}
+
+/* Remove spacing between table cells */
+td > img {
+  display: block;
+}
+
+a > img {
+  display: block;
+}
+
+.overlay {
+  position: absolute; 
+  top: 0px;
+  left: 0px;
+}
+
+.hidden {
+  visibility: hidden;
+}
+
+a > img.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  transition: opacity 0.1s ease-in-out;
+}
+
+a:hover > img.overlay {
+  opacity: 1;
+}
+
+/* Add a new class to control fading out */
+a.fade-out > img.overlay {
+  opacity: 0;
+}
+
+table {
+  width: 100vw;
 }
