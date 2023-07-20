@@ -175,16 +175,20 @@ function App() {
                   className={isHovered ? 'fade-out' : ''}
                   style={{ position: 'relative' }}
                 >
-                  <img
-                    src={require('./images/12.png')}
-                    className='image-element'
-                    alt='goob doobs component'
-                  />
-                  <img
-                    src={require('./images/12-highlight.png')}
-                    className='image-element overlay'
-                    alt='goob doobs highlight component'
-                  />
+                  <a href='https://www.jaredgoodall.com'>
+                    <img
+                      src={require('./images/12.png')}
+                      className='image-element'
+                      alt='goob doobs component'
+                    />
+                  </a>
+                  <a href='https://www.jaredgoodall.com'>
+                    <img
+                      src={require('./images/12-highlight.png')}
+                      className='image-element overlay'
+                      alt='goob doobs highlight component'
+                    />
+                  </a>
                 </div>
               </td>
               <td>
