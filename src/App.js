@@ -1,20 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './App.css';
-import {isMobile} from 'react-device-detect';
 
 function App() {
-  const [isHovered, setIsHovered] = useState(false);
-
-  const handleMouseEnter = () => {
-    setIsHovered(true);
-  };
-
-  const handleMouseLeave = () => {
-    setIsHovered(false);
-  };
-
   return (
     <div className='App'>
+      <a href='https://www.linkedin.com/in/jaredgoodall/'>Jared Goodall</a>
+      <br />
+      <a href='https://www.goobdoobs.com'>Goob Doobs</a>
+      {/*
       <div className={isMobile ? 'mobile components' : 'components'}>
         <table className='no-border'>
           <tbody>
@@ -215,6 +208,7 @@ function App() {
             </tbody>
           </table>
       </div>
+  */}
     </div>
   );
 }

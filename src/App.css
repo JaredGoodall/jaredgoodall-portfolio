@@ -12,6 +12,16 @@ body {
   width: 100%;
 }
 
+.App {
+  object-position: center;
+  vertical-align: middle;
+}
+
+a {
+  object-position: center;
+  vertical-align: middle;
+}
+
 .components {
   min-width: 100vw;
   width: 100vw; /* Change this to your desired width */
