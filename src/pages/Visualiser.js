@@ -97,6 +97,12 @@ function Visualiser() {
         accept=".json"
         onChange={handleFileUpload}
       />
+      {!(participants.length > 0 && messageData.length > 0) && (
+        <>
+        <h3>Please add a message.json file from Instragram</h3>
+        <p> {'(Settings -> Accounts Center -> Your Information and permissions -> Download your information)'}</p>
+        </>
+      )}
 
       {participants.length > 0 && messageData.length > 0 && (
         <div className='center-cards'>
@@ -132,7 +138,7 @@ function Visualiser() {
           )}
 
           <h2>Best {maxReactionsMessages.length === 1 ? ('Post') : ('Posts')}</h2>
-          <h3>{maxReactionsMessages.length === 1 ? ('This Post') : ('These Posts')} 
+          <h3>{maxReactionsMessages.length === 1 ? ('This Post ') : ('These Posts ')} 
             received {maxReactionsCount} reactions</h3>
 
           {maxReactionsMessages.map((message) => (

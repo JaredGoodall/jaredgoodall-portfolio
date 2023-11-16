@@ -5,7 +5,7 @@ function Home() {
   return (
     <div className='App'>
       <a href='https://www.linkedin.com/in/jaredgoodall/'>Jared Goodall LinkedIn</a>
-      <br /><br />
+      <br /><br /><br />
       <a href='https://www.goobdoobs.com'>Goob Exchange</a>
       <p>A "currency" trading website, allows user to send and trade different pretend currencies</p>
       <br />
