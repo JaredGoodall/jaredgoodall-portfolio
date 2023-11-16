@@ -5,9 +5,44 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #303030;
+  color: white;
+}
+
+a {
+  color:white
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+.user-card {
+  padding:25px;
+  background-color: rgb(115, 123, 234);
+  border-radius: 20px;
+  width: 350px;
+  text-align: center;
+}
+
+.user-space {
+  margin-left : 25px;
+}
+
+.center-cards {
+  flex-direction: column;
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  height: 100vh; /* Set the container height to the viewport height for vertical alignment */
+}
+
+.content {
+  padding: 30px;
+}
+
+.best-post {
+  background-color: darkgoldenrod;
+  border-radius: 10px;
+  padding:25px;
 }
