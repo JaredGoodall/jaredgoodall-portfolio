@@ -6,6 +6,7 @@ import './App.css';
 function Home() {
   return (
     <div className='App'>
+      <br />
       <a href='https://www.linkedin.com/in/jaredgoodall/'>Jared Goodall LinkedIn</a>
       <br /><br /><br />
       <img
