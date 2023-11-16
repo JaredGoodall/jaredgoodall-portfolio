@@ -91,7 +91,12 @@ function Visualiser() {
 
   return (
     <div className='content'>
-      <h1>Instagram Group Chat Visualiser</h1>
+      <img
+        src={require("./images/visualiser-white.png")}
+        className="logo invert "
+        alt="Logo for DM Visualiser"
+      />
+      <br /><br />
       <input
         type="file"
         accept=".json"

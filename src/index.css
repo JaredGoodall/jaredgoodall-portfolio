@@ -46,3 +46,23 @@ code {
   border-radius: 10px;
   padding:25px;
 }
+
+.logo {
+  max-width: 100%;
+  max-height: 40px;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.invert {
+  filter: invert(0%);
+  transition: filter 0.3s ease;
+}
+
+.invert:hover {
+  filter: invert(1000%);
+}
