@@ -11,6 +11,7 @@ function Home() {
       <br /><br /><br />
       <img
         src={require("./images/goobdoobs.png")}
+        href='https://www.goobdoobs.com'
         className="logo invert "
         alt="Logo for the Goob Exchange"
       />
@@ -20,6 +21,7 @@ function Home() {
       <br />
       <img
         src={require("./images/visualiser-white.png")}
+        href="/visualiser"
         className="logo invert "
         alt="Logo for DM Visualiser"
       />
