@@ -1,11 +1,19 @@
 import React from 'react';
 import './images/goobdoobs.png'
 import './images/visualiser-white.png'
+import './images/jared-black.png'
 import './App.css';
 
 function Home() {
   return (
     <div className='App'>
+      <br />
+      <img
+        src={require("./images/jared-black.png")}
+        href="https://www.linkedin.com/in/jaredgoodall/"
+        className="mainLogo invert "
+        alt="Logo for Jared Goodall"
+      />
       <br />
       <a href='https://www.linkedin.com/in/jaredgoodall/'>Jared Goodall LinkedIn</a>
       <br /><br /><br />
