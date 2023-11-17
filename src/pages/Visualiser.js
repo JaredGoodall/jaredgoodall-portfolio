@@ -104,7 +104,7 @@ function Visualiser() {
       />
       {!(participants.length > 0 && messageData.length > 0) && (
         <>
-        <h3>Please add a message.json file from Instragram</h3>
+        <h3>Please add a message.json file from Instagram</h3>
         <p> {'(Settings -> Accounts Center -> Your Information and permissions -> Download your information)'}</p>
         </>
       )}
