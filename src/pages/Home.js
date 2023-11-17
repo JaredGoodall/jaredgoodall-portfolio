@@ -1,7 +1,7 @@
 import React from 'react';
 import './images/goobdoobs.png'
 import './images/visualiser-white.png'
-import './images/jared-black.png'
+import './images/jared-white.png'
 import './App.css';
 
 function Home() {
@@ -9,7 +9,7 @@ function Home() {
     <div className='App'>
       <br />
       <img
-        src={require("./images/jared-black.png")}
+        src={require("./images/jared-white.png")}
         href="https://www.linkedin.com/in/jaredgoodall/"
         className="mainLogo invert "
         alt="Logo for Jared Goodall"
