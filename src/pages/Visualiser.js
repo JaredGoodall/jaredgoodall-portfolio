@@ -17,7 +17,7 @@ function Visualiser() {
 
   const handleFileUpload = (e) => {
     const file = e.target.files[0];
-    
+
     if (file) {
       const reader = new FileReader();
       reader.onload = (event) => {
@@ -36,7 +36,7 @@ function Visualiser() {
 
           if (parsedData.title) {
             setGroupName(parsedData.title);
-          } 
+          }
         } catch (error) {
           alert('Error parsing JSON file');
         }
@@ -71,7 +71,7 @@ function Visualiser() {
     messageColors[i] = selectColour(i, 24, 60);
     messageAccents[i] = selectColour(i, 24, 80);
   }
-  
+
   messageData.forEach((message) => {
     if (message.reactions) {
       if (message.reactions.length > maxReactionsCount) {
@@ -81,12 +81,12 @@ function Visualiser() {
         maxReactionsMessages.push(message);
       }
     }
-  
+
     const time = new Date(message.timestamp_ms).getHours();
-  
+
     messageTimes[time]++;
   });
-  
+
   console.log(messageTimes);
 
   return (
@@ -100,63 +100,69 @@ function Visualiser() {
       <input
         type="file"
         accept=".json"
+        id="file-input"
         onChange={handleFileUpload}
+        hidden
       />
+      <label
+        for="file-input"
+        className="primary-btn"
+      >Upload File</label>
       {!(participants.length > 0 && messageData.length > 0) && (
         <>
-        <h3>Please add a message.json file from Instagram</h3>
-        <p> {'(Settings -> Accounts Center -> Your Information and permissions -> Download your information)'}</p>
+          <h3>Please add a message.json file from Instagram</h3>
+          <p> {'(Settings -> Accounts Center -> Your Information and permissions -> Download your information)'}</p>
         </>
       )}
 
       {participants.length > 0 && messageData.length > 0 && (
         <div className='center-cards'>
-          
+
           <h2>{groupName ? `${groupName} stats:` : "Group stats:"}</h2>
           {participantCounts.length > 0 && ( // Add this condition to render PieChart only when data is available
-            <BarChart 
-              label = " Average reactions"
-              stats = {participantCounts.map((participant) => participant.messageCount === 0 ? (0) : (Math.round((participant.likedCount / participant.messageCount + Number.EPSILON) * 1000) / 1000))}
-              names = {participantCounts.map((participant) => participant.name)}
-              colours = {participantCounts.map((participant) => participant.colour)}
-              accents = {participantCounts.map((participant) => participant.accentColour)}
+            <BarChart
+              label=" Average reactions"
+              stats={participantCounts.map((participant) => participant.messageCount === 0 ? (0) : (Math.round((participant.likedCount / participant.messageCount + Number.EPSILON) * 1000) / 1000))}
+              names={participantCounts.map((participant) => participant.name)}
+              colours={participantCounts.map((participant) => participant.colour)}
+              accents={participantCounts.map((participant) => participant.accentColour)}
             />
           )}
 
           {participantCounts.length > 0 && ( // Add this condition to render PieChart only when data is available
-            <PieChart 
-              label = " # of messages"
-              stats = {participantCounts.map((participant) => participant.messageCount)}
-              names = {participantCounts.map((participant) => participant.name)}
-              colours = {participantCounts.map((participant) => participant.colour)}
-              accents = {participantCounts.map((participant) => participant.accentColour)}
+            <PieChart
+              label=" # of messages"
+              stats={participantCounts.map((participant) => participant.messageCount)}
+              names={participantCounts.map((participant) => participant.name)}
+              colours={participantCounts.map((participant) => participant.colour)}
+              accents={participantCounts.map((participant) => participant.accentColour)}
             />
           )}
 
           {participantCounts.length > 0 && ( // Add this condition to render PieChart only when data is available
-            <Polar 
-              stats = {messageTimes}
-              names = {["1am", "2am", "3am", "4am", "5am", "6am", "7am", "8am", "9am", "10am", "11am", "12pm", "1pm", "2pm", "3pm", "4pm", "5pm", "6pm", "7pm", "8pm", "9pm", "10pm", "11pm", "12am"]}
-              colours = {messageColors}
-              accents = {messageAccents}
+            <Polar
+              stats={messageTimes}
+              names={["1am", "2am", "3am", "4am", "5am", "6am", "7am", "8am", "9am", "10am", "11am", "12pm", "1pm", "2pm", "3pm", "4pm", "5pm", "6pm", "7pm", "8pm", "9pm", "10pm", "11pm", "12am"]}
+              colours={messageColors}
+              accents={messageAccents}
             />
           )}
 
           <h2>Best {maxReactionsMessages.length === 1 ? ('Post') : ('Posts')}</h2>
-          <h3>{maxReactionsMessages.length === 1 ? ('This Post ') : ('These Posts ')} 
+          <h3>{maxReactionsMessages.length === 1 ? ('This Post ') : ('These Posts ')}
             received {maxReactionsCount} reactions</h3>
 
           {maxReactionsMessages.map((message) => (
             <BestPost
-            message = {message} />
+              message={message} />
           ))}
 
           <br />
 
           {participantCounts.map((participant, index) => (
-            <UserData 
-            participant = {participant}
-            index = {index} />
+            <UserData
+              participant={participant}
+              index={index} />
           ))}
         </div>
       )}

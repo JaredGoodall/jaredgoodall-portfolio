@@ -10,7 +10,7 @@ body {
 }
 
 a {
-  color:white
+  color: white
 }
 
 code {
@@ -19,7 +19,7 @@ code {
 }
 
 .user-card {
-  padding:25px;
+  padding: 25px;
   background-color: rgb(115, 123, 234);
   border-radius: 20px;
   width: 350px;
@@ -27,14 +27,17 @@ code {
 }
 
 .user-space {
-  margin-left : 25px;
+  margin-left: 25px;
 }
 
 .center-cards {
   flex-direction: column;
-  justify-content: center; /* Center horizontally */
-  align-items: center; /* Center vertically */
-  height: 100vh; /* Set the container height to the viewport height for vertical alignment */
+  justify-content: center;
+  /* Center horizontally */
+  align-items: center;
+  /* Center vertically */
+  height: 100vh;
+  /* Set the container height to the viewport height for vertical alignment */
 }
 
 .content {
@@ -44,7 +47,7 @@ code {
 .best-post {
   background-color: darkgoldenrod;
   border-radius: 10px;
-  padding:25px;
+  padding: 25px;
 }
 
 .logo {
@@ -76,4 +79,20 @@ code {
 
 .invert:hover {
   filter: invert(1000%);
+}
+
+
+.primary-btn {
+  background-color: white;
+  color: #181818;
+  cursor: pointer;
+  padding: 10px 20px;
+  font-weight: bold;
+  border-radius: 10px;
+  transition: background-color 0.2s, color 0.4s;
+}
+
+.primary-btn:hover {
+  background-color: #151515;
+  color: white;
 }
