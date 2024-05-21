@@ -154,15 +154,10 @@ function Bento() {
                 <Item>
                 <Stack direction="row" sx={{ m: 2 }} gap={2}>
                   <Box>
-                    <img
-                      src={visualiserWhite}
-                      className="logo invert"
-                      alt="Logo for DM Visualiser"
-                    />
                   </Box>
                   <Box>
-                    <h2>Todo</h2>
-                    <p>To be done</p>
+                    <h2>Note taking and Todo App</h2>
+                    <p>Under development: React Native app that consolidates my favourite things - note taking and todo lists</p>
                   </Box>
                   </Stack>
                 </Item>
@@ -172,15 +167,23 @@ function Bento() {
                 <Item>
                   <Stack direction="row" sx={{ m: 2 }} gap={2}>
                     <Box>
-                      <img
-                        src={visualiserWhite}
-                        className="logo invert"
-                        alt="Logo for DM Visualiser"
-                      />
                     </Box>
                     <Box>
-                      <h2>Todo</h2>
-                      <p>To be done</p>
+                      <h2>Sets and Reps App</h2>
+                      <p>Not even started: Mobile App to better understand your gym progress</p>
+                    </Box>
+                  </Stack>
+                </Item>
+              </Grid>
+
+              <Grid item>
+                <Item>
+                  <Stack direction="row" sx={{ m: 2 }} gap={2}>
+                    <Box>
+                    </Box>
+                    <Box>
+                      <h2>Dropzone / Pinned</h2>
+                      <p>Pipe dream: Social media app focused on locations, not experiences</p>
                     </Box>
                   </Stack>
                 </Item>
