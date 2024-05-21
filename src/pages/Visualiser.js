@@ -21,9 +21,8 @@ const Item = styled(Grid)(({ theme }) => ({
   boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)', 
   border: '1px solid rgba(255, 255, 255, 0.3)',
   transform: 'scale(1)',
-  transition: 'transform 0.3s, opacity 0.3s, boxShadow 0.3s', 
+  transition: 'opacity 0.3s, boxShadow 0.3s', 
   '&:hover': {
-    transform: 'scale(1.02)', 
     boxShadow: '0 8px 40px rgba(0, 0, 0, 0.2)', 
   },
   display: 'flex',
@@ -36,9 +35,13 @@ function Visualiser() {
   const [messageData, setMessageData] = useState([]);
   const [groupName, setGroupName] = useState("");
 
+  const handleJaredGoodall = () => {
+    window.location.href = 'https://jaredgoodall.com';
+  };  
+
   const handleFileUpload = (e) => {
     const file = e.target.files[0];
-
+ 
     if (file) {
       const reader = new FileReader();
       reader.onload = (event) => {
@@ -112,6 +115,7 @@ function Visualiser() {
     <div className='content'>
       <Stack direction={'row'} gap={2} alignItems={'center'} mb={2}>
         <img
+          onClick={handleJaredGoodall}
           src={require("./images/visualiser-white.png")}
           className="logo invert "
           alt="Logo for DM Visualiser"
