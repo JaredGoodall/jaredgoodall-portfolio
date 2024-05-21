@@ -143,7 +143,7 @@ function Visualiser() {
       {participants.length > 0 && messageData.length > 0 && (
         <>
           <Typography variant="h5" mb={1}>{groupName ? (<><strong>{groupName}</strong> stats:</>) : "Message stats:"}</Typography>
-          <Grid container spacing={2} columns={{ xs: 3, sm: 6 }}>
+          <Grid container columns={{ xs: 3, sm: 6 }}>
             <Item item xs={3}>
               <Typography variant="h6">Messages by User</Typography>
               {participantCounts.length > 0 ? ( // Add this condition to render PieChart only when data is available
