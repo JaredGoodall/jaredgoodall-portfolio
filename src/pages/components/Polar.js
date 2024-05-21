@@ -5,12 +5,20 @@ import { PolarArea } from 'react-chartjs-2';
 ChartJS.register(...registerables);
 
 function Polar({ names, stats, colours, accents }) {
+  const options = {
+    plugins: {
+      legend: {
+        display: false,
+      },
+    },
+  };
+
   const data = {
     labels: names,
     datasets: [
       {
-        label: '# of Votes',
-        data: stats, // Use the stats prop as the data for the chart
+        label: '# of Messages',
+        data: stats, 
         backgroundColor: accents,
         borderColor: colours,
         borderWidth: 2,
@@ -18,7 +26,7 @@ function Polar({ names, stats, colours, accents }) {
     ],
   };
 
-  return <PolarArea data={data} />;
+  return <PolarArea options={options} data={data} />;
 }
 
 export default Polar;

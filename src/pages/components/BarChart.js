@@ -5,6 +5,15 @@ import { Bar } from 'react-chartjs-2';
 ChartJS.register(...registerables);
 
 function PieChart({ label, names, stats, colours, accents }) {
+  const options = {
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        display: false,
+      },
+    },
+  };
+
   const data = {
     labels: names,
     datasets: [
@@ -18,7 +27,7 @@ function PieChart({ label, names, stats, colours, accents }) {
     ],
   };
 
-  return <Bar data={data} />;
+  return <Bar options={options} data={data} />;
 }
 
 export default PieChart;

@@ -4,11 +4,32 @@ import BarChart from './components/BarChart'
 import UserData from './components/UserData';
 import BestPost from './components/BestPost';
 import Polar from './components/Polar';
+import { styled } from '@mui/material/styles';
+import { Box, Grid, Stack, Typography } from '@mui/material';
 
 function selectColour(colorNum, colors, lightness = 50) {
   if (colors < 1) colors = 1; // defaults to one color - avoid divide by zero
   return `hsl(${colorNum * (360 / colors) % 360}, 100%, ${lightness}%)`;
 }
+
+const Item = styled(Grid)(({ theme }) => ({
+  backgroundColor: 'rgba(255, 255, 255, 0.5)', 
+  backdropFilter: 'blur(10px)',
+  ...theme.typography.body2,
+  color: theme.palette.text.secondary,
+  borderRadius: '10px', 
+  boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)', 
+  border: '1px solid rgba(255, 255, 255, 0.3)',
+  transform: 'scale(1)',
+  transition: 'transform 0.3s, opacity 0.3s, boxShadow 0.3s', 
+  '&:hover': {
+    transform: 'scale(1.02)', 
+    boxShadow: '0 8px 40px rgba(0, 0, 0, 0.2)', 
+  },
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+}));
 
 function Visualiser() {
   const [participants, setParticipants] = useState([]);
@@ -87,84 +108,113 @@ function Visualiser() {
     messageTimes[time]++;
   });
 
-  console.log(messageTimes);
-
   return (
     <div className='content'>
-      <img
-        src={require("./images/visualiser-white.png")}
-        className="logo invert "
-        alt="Logo for DM Visualiser"
-      />
-      <br /><br />
-      <input
-        type="file"
-        accept=".json"
-        id="file-input"
-        onChange={handleFileUpload}
-        hidden
-      />
-      <label
-        for="file-input"
-        className="primary-btn"
-      >Upload File</label>
+      <Stack direction={'row'} gap={2} alignItems={'center'} mb={2}>
+        <img
+          src={require("./images/visualiser-white.png")}
+          className="logo invert "
+          alt="Logo for DM Visualiser"
+        />
+
+        <Box>
+          <input
+            type="file"
+            accept=".json"
+            id="file-input"
+            onChange={handleFileUpload}
+            hidden
+          />
+          <label
+            for="file-input"
+            className="primary-btn"
+          >Upload File</label>
+        </Box>
+
+      </Stack>
+
       {!(participants.length > 0 && messageData.length > 0) && (
         <>
-          <h3>Please add a message.json file from Instagram</h3>
-          <p> {'(Settings -> Accounts Center -> Your Information and permissions -> Download your information)'}</p>
+          <Typography>Please add a message.json file from Instagram</Typography>
+          <Typography> {'(Settings -> Accounts Center -> Your Information and permissions -> Download your information)'}</Typography>
         </>
       )}
 
       {participants.length > 0 && messageData.length > 0 && (
-        <div className='center-cards'>
+        <>
+          <Typography variant="h5" mb={1}>{groupName ? (<><strong>{groupName}</strong> stats:</>) : "Message stats:"}</Typography>
+          <Grid container spacing={2} columns={{ xs: 3, sm: 6 }}>
+            <Item item xs={3}>
+              <Typography variant="h6">Messages by User</Typography>
+              {participantCounts.length > 0 ? ( // Add this condition to render PieChart only when data is available
+                <PieChart
+                  label=" # of messages"
+                  stats={participantCounts.map((participant) => participant.messageCount)}
+                  names={participantCounts.map((participant) => participant.name)}
+                  colours={participantCounts.map((participant) => participant.colour)}
+                  accents={participantCounts.map((participant) => participant.accentColour)}
+                />
+              ) : (
+                <Typography>Nothing to show</Typography>
+              )}
+            </Item>
 
-          <h2>{groupName ? `${groupName} stats:` : "Group stats:"}</h2>
-          {participantCounts.length > 0 && ( // Add this condition to render PieChart only when data is available
-            <BarChart
-              label=" Average reactions"
-              stats={participantCounts.map((participant) => participant.messageCount === 0 ? (0) : (Math.round((participant.likedCount / participant.messageCount + Number.EPSILON) * 1000) / 1000))}
-              names={participantCounts.map((participant) => participant.name)}
-              colours={participantCounts.map((participant) => participant.colour)}
-              accents={participantCounts.map((participant) => participant.accentColour)}
-            />
-          )}
+            <Item item xs={3}>
+              <Typography variant="h6">Top {maxReactionsMessages.length === 1 ? ('Message') : ('Messages')}</Typography>
+              {maxReactionsMessages.length > 0 ? ( 
+                <>
+                  <Typography>{maxReactionsMessages.length === 1 ? ('This message ') : ('These messages ')}
+                    received {maxReactionsCount} reactions</Typography>
 
-          {participantCounts.length > 0 && ( // Add this condition to render PieChart only when data is available
-            <PieChart
-              label=" # of messages"
-              stats={participantCounts.map((participant) => participant.messageCount)}
-              names={participantCounts.map((participant) => participant.name)}
-              colours={participantCounts.map((participant) => participant.colour)}
-              accents={participantCounts.map((participant) => participant.accentColour)}
-            />
-          )}
+                  <Box>
+                    {maxReactionsMessages.map((message) => (
+                      <BestPost
+                        message={message} />
+                    ))}
+                  </Box>
+                </>
+              ) : (
+                <Typography>Nothing to show</Typography>
+              )}
+            </Item>
 
-          {participantCounts.length > 0 && ( // Add this condition to render PieChart only when data is available
-            <Polar
-              stats={messageTimes}
-              names={["1am", "2am", "3am", "4am", "5am", "6am", "7am", "8am", "9am", "10am", "11am", "12pm", "1pm", "2pm", "3pm", "4pm", "5pm", "6pm", "7pm", "8pm", "9pm", "10pm", "11pm", "12am"]}
-              colours={messageColors}
-              accents={messageAccents}
-            />
-          )}
 
-          <h2>Best {maxReactionsMessages.length === 1 ? ('Post') : ('Posts')}</h2>
-          <h3>{maxReactionsMessages.length === 1 ? ('This Post ') : ('These Posts ')}
-            received {maxReactionsCount} reactions</h3>
+            <Item item xs={3}>
+              {/* <Typography>Average Reactions</Typography> */}
+              {participantCounts.length > 0 ? (
+                <BarChart
+                  label=" Average reactions"
+                  stats={participantCounts.map((participant) => participant.messageCount === 0 ? (0) : (Math.round((participant.likedCount / participant.messageCount + Number.EPSILON) * 1000) / 1000))}
+                  names={participantCounts.map((participant) => participant.name)}
+                  colours={participantCounts.map((participant) => participant.colour)}
+                  accents={participantCounts.map((participant) => participant.accentColour)}
+                />
+              ) : (
+                <Typography>Nothing to show</Typography>
+              )}
+            </Item>
 
-          {maxReactionsMessages.map((message) => (
-            <BestPost
-              message={message} />
-          ))}
+            <Item item xs={3}>
+            <Typography variant="h6">Time of day</Typography>
 
-          <br />
-
-          {participantCounts.map((participant, index) => (
-            <UserData
-              participant={participant}
-              index={index} />
-          ))}
-        </div>
+              {participantCounts.length > 0 ? ( // Add this condition to render PieChart only when data is available
+                <Polar
+                  stats={messageTimes}
+                  names={["1am", "2am", "3am", "4am", "5am", "6am", "7am", "8am", "9am", "10am", "11am", "12pm", "1pm", "2pm", "3pm", "4pm", "5pm", "6pm", "7pm", "8pm", "9pm", "10pm", "11pm", "12am"]}
+                  colours={messageColors}
+                  accents={messageAccents}
+                />
+              ) : (
+                  <Typography>Nothing to show</Typography>
+                )}
+            </Item>
+          </Grid>
+            {participantCounts.map((participant, index) => (
+              <UserData
+                participant={participant}
+                index={index} />
+            ))}
+        </>
       )}
     </div>
   );

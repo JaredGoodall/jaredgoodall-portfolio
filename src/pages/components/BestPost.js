@@ -1,3 +1,4 @@
+import { Box, Typography } from '@mui/material';
 import React from 'react';
 
 function BestPost({message}) {
@@ -14,18 +15,15 @@ function BestPost({message}) {
     const formattedDateTime = `${day}/${month}/${year} at ${(hours)}:${minutes}`;
     
     return (
-        <div className='user-space'>
-            <div className='best-post'>
-                From <strong>{message.sender_name}</strong> at <strong>{formattedDateTime}</strong> <br />
-                
-                {message.share ? (
-                    <a href={message.share.link}>Link to post</a>
-                ) : message.photos ? 
-                    ("Sent " + message.photos.length + (message.photos.length === 1 ? (" photo") : (" photos"))) 
-                    : (message.content)}
-                <br />
-            </div>
-        </div>
+      <Box backgroundColor={'#ffe59e'} p={2} borderRadius={2}>
+        <Typography>From <strong>{message.sender_name}</strong> at <strong>{formattedDateTime}</strong></Typography>
+        
+        {message.share ? (
+            <a href={message.share.link}>Link to post</a>
+        ) : message.photos ? 
+            ("Sent " + message.photos.length + (message.photos.length === 1 ? (" photo") : (" photos"))) 
+            : (message.content)}
+        </Box>
     );
 }
 

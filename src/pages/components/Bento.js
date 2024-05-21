@@ -116,7 +116,7 @@ function Bento() {
                     <Box>
                       <img
                         src={goobdoobs}
-                        className="logo invert"
+                        className="logo"
                         alt="Logo for the Goob Exchange"
                       />
                     </Box>
@@ -157,7 +157,7 @@ function Bento() {
                   </Box>
                   <Box>
                     <h2>Note taking and Todo App</h2>
-                    <p>Under development: React Native app that consolidates my favourite things - note taking and todo lists</p>
+                    <p><b>Under development: </b>React Native app that consolidates my favourite things - note taking and todo lists</p>
                   </Box>
                   </Stack>
                 </Item>
@@ -170,7 +170,7 @@ function Bento() {
                     </Box>
                     <Box>
                       <h2>Sets and Reps App</h2>
-                      <p>Not even started: Mobile App to better understand your gym progress</p>
+                      <p><b>Not even started: </b>Mobile App to better understand your gym progress</p>
                     </Box>
                   </Stack>
                 </Item>
@@ -183,13 +183,13 @@ function Bento() {
                     </Box>
                     <Box>
                       <h2>Dropzone / Pinned</h2>
-                      <p>Pipe dream: Social media app focused on locations, not experiences</p>
+                      <p><b>Pipe dream: </b>Social media app focused on experiences, not stuff</p>
                     </Box>
                   </Stack>
                 </Item>
               </Grid>
               <Grid item display={'flex'} justifyContent={'center'}>
-                <Item>
+                <Item sx={{ mb: 3 }}>
                   <Typography fontSize={'1em'}>. . .</Typography>
                 </Item>
               </Grid>

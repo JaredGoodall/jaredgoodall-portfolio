@@ -10,7 +10,7 @@ function Home() {
     <>
     {showBanner && 
       <Box display={'flex'} justifyContent={'center'} gap={2} alignItems={'center'} p={0.5} backgroundColor={'#f5c02c'} boxShadow={'0 4px 30px rgba(0, 0, 0, 0.1)'}>
-        <Typography>Hi, sorry this looks ugly. Im working on it...</Typography>
+        <Typography>Hi, sorry this looks ugly. I'm working on it!</Typography>
         <IconButton variant={'contained'} size={'small'} onClick={() => setShowBanner(false)}>
           <CloseIcon />
         </IconButton>
