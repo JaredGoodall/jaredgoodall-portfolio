@@ -183,7 +183,7 @@ function Bento() {
                     </Box>
                     <Box>
                       <h2>Dropzone / Pinned</h2>
-                      <p><b>Pipe dream: </b>Social media app focused on experiences, not stuff</p>
+                      <p><b>No chance: </b>Social media app focused on experiences, not stuff</p>
                     </Box>
                   </Stack>
                 </Item>

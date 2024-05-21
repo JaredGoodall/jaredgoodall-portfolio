@@ -131,6 +131,7 @@ function Visualiser() {
           >Upload File</label>
         </Box>
 
+        <Typography variant="h5" mb={1}>{groupName && (<strong>{groupName}</strong>)}</Typography>
       </Stack>
 
       {!(participants.length > 0 && messageData.length > 0) && (
@@ -142,73 +143,74 @@ function Visualiser() {
 
       {participants.length > 0 && messageData.length > 0 && (
         <>
-          <Typography variant="h5" mb={1}>{groupName ? (<><strong>{groupName}</strong> stats:</>) : "Message stats:"}</Typography>
-          <Grid container columns={{ xs: 3, sm: 6 }}>
-            <Item item xs={3}>
-              <Typography variant="h6">Messages by User</Typography>
-              {participantCounts.length > 0 ? ( // Add this condition to render PieChart only when data is available
-                <PieChart
-                  label=" # of messages"
-                  stats={participantCounts.map((participant) => participant.messageCount)}
-                  names={participantCounts.map((participant) => participant.name)}
-                  colours={participantCounts.map((participant) => participant.colour)}
-                  accents={participantCounts.map((participant) => participant.accentColour)}
-                />
-              ) : (
-                <Typography>Nothing to show</Typography>
-              )}
-            </Item>
-
-            <Item item xs={3}>
-              <Typography variant="h6">Top {maxReactionsMessages.length === 1 ? ('Message') : ('Messages')}</Typography>
-              {maxReactionsMessages.length > 0 ? ( 
-                <>
-                  <Typography>{maxReactionsMessages.length === 1 ? ('This message ') : ('These messages ')}
-                    received {maxReactionsCount} reactions</Typography>
-
-                  <Box>
-                    {maxReactionsMessages.map((message) => (
-                      <BestPost
-                        message={message} />
-                    ))}
-                  </Box>
-                </>
-              ) : (
-                <Typography>Nothing to show</Typography>
-              )}
-            </Item>
-
-
-            <Item item xs={3}>
-              {/* <Typography>Average Reactions</Typography> */}
-              {participantCounts.length > 0 ? (
-                <BarChart
-                  label=" Average reactions"
-                  stats={participantCounts.map((participant) => participant.messageCount === 0 ? (0) : (Math.round((participant.likedCount / participant.messageCount + Number.EPSILON) * 1000) / 1000))}
-                  names={participantCounts.map((participant) => participant.name)}
-                  colours={participantCounts.map((participant) => participant.colour)}
-                  accents={participantCounts.map((participant) => participant.accentColour)}
-                />
-              ) : (
-                <Typography>Nothing to show</Typography>
-              )}
-            </Item>
-
-            <Item item xs={3}>
-            <Typography variant="h6">Time of day</Typography>
-
-              {participantCounts.length > 0 ? ( // Add this condition to render PieChart only when data is available
-                <Polar
-                  stats={messageTimes}
-                  names={["1am", "2am", "3am", "4am", "5am", "6am", "7am", "8am", "9am", "10am", "11am", "12pm", "1pm", "2pm", "3pm", "4pm", "5pm", "6pm", "7pm", "8pm", "9pm", "10pm", "11pm", "12am"]}
-                  colours={messageColors}
-                  accents={messageAccents}
-                />
-              ) : (
+          <Box display={'flex'} justifyContent={'center'}>
+            <Grid container columns={{ xs: 3, sm: 6 }} maxWidth={'800px'}>
+              <Item item xs={3}>
+                <Typography variant="h6">Messages by User</Typography>
+                {participantCounts.length > 0 ? ( // Add this condition to render PieChart only when data is available
+                  <PieChart
+                    label=" # of messages"
+                    stats={participantCounts.map((participant) => participant.messageCount)}
+                    names={participantCounts.map((participant) => participant.name)}
+                    colours={participantCounts.map((participant) => participant.colour)}
+                    accents={participantCounts.map((participant) => participant.accentColour)}
+                  />
+                ) : (
                   <Typography>Nothing to show</Typography>
                 )}
-            </Item>
-          </Grid>
+              </Item>
+
+              <Item item xs={3}>
+                <Typography variant="h6">Top {maxReactionsMessages.length === 1 ? ('Message') : ('Messages')}</Typography>
+                {maxReactionsMessages.length > 0 ? ( 
+                  <>
+                    <Typography>{maxReactionsMessages.length === 1 ? ('This message ') : ('These messages ')}
+                      received {maxReactionsCount} reactions</Typography>
+
+                    <Box>
+                      {maxReactionsMessages.map((message) => (
+                        <BestPost
+                          message={message} />
+                      ))}
+                    </Box>
+                  </>
+                ) : (
+                  <Typography>Nothing to show</Typography>
+                )}
+              </Item>
+
+
+              <Item item xs={3}>
+                {/* <Typography>Average Reactions</Typography> */}
+                {participantCounts.length > 0 ? (
+                  <BarChart
+                    label=" Average reactions"
+                    stats={participantCounts.map((participant) => participant.messageCount === 0 ? (0) : (Math.round((participant.likedCount / participant.messageCount + Number.EPSILON) * 1000) / 1000))}
+                    names={participantCounts.map((participant) => participant.name)}
+                    colours={participantCounts.map((participant) => participant.colour)}
+                    accents={participantCounts.map((participant) => participant.accentColour)}
+                  />
+                ) : (
+                  <Typography>Nothing to show</Typography>
+                )}
+              </Item>
+
+              <Item item xs={3}>
+              <Typography variant="h6">Time of day</Typography>
+
+                {participantCounts.length > 0 ? ( // Add this condition to render PieChart only when data is available
+                  <Polar
+                    stats={messageTimes}
+                    names={["1am", "2am", "3am", "4am", "5am", "6am", "7am", "8am", "9am", "10am", "11am", "12pm", "1pm", "2pm", "3pm", "4pm", "5pm", "6pm", "7pm", "8pm", "9pm", "10pm", "11pm", "12am"]}
+                    colours={messageColors}
+                    accents={messageAccents}
+                  />
+                ) : (
+                    <Typography>Nothing to show</Typography>
+                  )}
+              </Item>
+            </Grid>
+            </Box>
             {participantCounts.map((participant, index) => (
               <UserData
                 participant={participant}
