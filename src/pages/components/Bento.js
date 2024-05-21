@@ -1,6 +1,6 @@
 import React from 'react';
 import { styled } from '@mui/material/styles';
-import { Box, Paper, Grid, Stack, IconButton, Chip } from '@mui/material';
+import { Box, Paper, Grid, Stack, IconButton, Chip, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import goobdoobs from '../images/goobdoobs.png';
 import visualiserWhite from '../images/visualiser-white.png';
@@ -9,10 +9,20 @@ import InstagramIcon from '@mui/icons-material/Instagram';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 
 const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: '#bfbfbf',
+  backgroundColor: 'rgba(255, 255, 255, 0.4)', 
+  backdropFilter: 'blur(10px)',
   ...theme.typography.body2,
   padding: theme.spacing(1),
   color: theme.palette.text.secondary,
+  borderRadius: '10px', 
+  boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)', 
+  border: '1px solid rgba(255, 255, 255, 0.3)',
+  transform: 'scale(1)',
+  transition: 'transform 0.3s, opacity 0.3s, boxShadow 0.3s', 
+  '&:hover': {
+    transform: 'scale(1.02)', 
+    boxShadow: '0 8px 40px rgba(0, 0, 0, 0.2)', 
+  },
 }));
 
 function Bento() {
@@ -50,7 +60,7 @@ function Bento() {
   };
 
   return (
-    <Box sx={{ p: margin, height: '100vh', background: '#fff' }}>
+    <Box sx={{ p: margin, height: '100vh' }}>
       <Box className='App' sx={{ minHeight: '100%', width: '100%' }}>
         <Grid container rowSpacing={4} columnSpacing={2} columns={{ sm: 1, md: 9 }}>
           <Grid item sm={1} md={3} sx={{ height: `calc(100vh - ${margin} - ${margin})` }}>
@@ -173,6 +183,11 @@ function Bento() {
                       <p>To be done</p>
                     </Box>
                   </Stack>
+                </Item>
+              </Grid>
+              <Grid item display={'flex'} justifyContent={'center'}>
+                <Item>
+                  <Typography fontSize={'1em'}>. . .</Typography>
                 </Item>
               </Grid>
             </Grid>
