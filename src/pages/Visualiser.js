@@ -6,6 +6,7 @@ import BestPost from './components/BestPost';
 import Polar from './components/Polar';
 import { styled } from '@mui/material/styles';
 import { Box, Grid, Stack, Typography } from '@mui/material';
+import DialogContainer from './components/DialogContainer';
 
 function selectColour(colorNum, colors, lightness = 50) {
   if (colors < 1) colors = 1; // defaults to one color - avoid divide by zero
@@ -34,10 +35,48 @@ function Visualiser() {
   const [participants, setParticipants] = useState([]);
   const [messageData, setMessageData] = useState([]);
   const [groupName, setGroupName] = useState("");
+  const [open, setOpen] = useState(false);
+  const [dialogTitle, setDialogTitle] = useState("Undefined");
+  const [dialogContent, setDialogContent] = useState([]);
+
+  function decodeUtf8(s) {
+    return decodeURIComponent(escape(s));
+  }
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   const handleJaredGoodall = () => {
     window.location.href = 'https://jaredgoodall.com';
   };  
+
+  const handleReactions = () => {
+    const reactText = []
+
+    sortedReactions.forEach((react) => {
+      reactText.push(decodeUtf8(react) + " - " + reactionCount[react] + " uses")
+    })
+
+    setDialogTitle('Message reactions')
+    setDialogContent(reactText)
+    setOpen(true)
+  }
+
+
+  const handleUserList = () => {
+    const userContent = []
+
+    participantCounts.forEach((participant) => {
+      userContent.push(
+          <UserData participant={participant} />
+        )
+      })
+
+    setDialogTitle('User information')
+    setDialogContent(userContent)
+    setOpen(true)
+  }
 
   const handleFileUpload = (e) => {
     const file = e.target.files[0];
@@ -86,6 +125,7 @@ function Visualiser() {
   }));
 
   let maxReactionsMessages = [];
+  let reactionCount = {};
   let maxReactionsCount = 0;
   let messageTimes = [];
   let messageColors = []
@@ -104,6 +144,14 @@ function Visualiser() {
       } else if (message.reactions.length === maxReactionsCount) {
         maxReactionsMessages.push(message);
       }
+
+      message.reactions.forEach((react) => {
+        if (reactionCount[react.reaction]) {
+          reactionCount[react.reaction]++;
+        } else {
+          reactionCount[react.reaction] = 1;
+        }
+      });
     }
 
     const time = new Date(message.timestamp_ms).getHours();
@@ -111,17 +159,45 @@ function Visualiser() {
     messageTimes[time]++;
   });
 
+  const sortedReactions = Object.keys(reactionCount)
+    .sort((a, b) => reactionCount[b] - reactionCount[a]);
+    
+
+  const hearts = ["\u00e2\u009d\u00a4", "\u00e2\u009d\u00a4\u00ef\u00b8\u008f" ]
+
+  const mostUsedNonHeartReaction = sortedReactions.length > 0 ? (
+    !hearts.includes(sortedReactions[0]) ? (
+      sortedReactions[0]
+    ) : (
+      (sortedReactions.length > 1 ? (
+        !hearts.includes(sortedReactions[1]) ? (
+          sortedReactions[1]
+        ) : (
+          (sortedReactions.length > 2 ? (
+            sortedReactions[2]
+          ) : (
+            null
+          ))
+        )
+      ) : (
+        null
+      )) 
+    )
+  ) : null;
+
   return (
     <div className='content'>
-      <Stack direction={'row'} gap={2} alignItems={'center'} mb={2}>
-        <img
-          onClick={handleJaredGoodall}
-          src={require("./images/visualiser-white.png")}
-          className="logo invert "
-          alt="Logo for DM Visualiser"
-        />
+      <Grid container spacing={2} alignItems='center' mb={1}>
+        <Grid item xs={12} sm={4}>
+          <img
+            onClick={handleJaredGoodall}
+            src={require("./images/visualiser-white.png")}
+            className="logo invert"
+            alt="Logo for DM Visualiser"
+          />
+        </Grid>
 
-        <Box>
+        <Grid item xs={12} sm={4}>
           <input
             type="file"
             accept=".json"
@@ -129,29 +205,32 @@ function Visualiser() {
             onChange={handleFileUpload}
             hidden
           />
-          <label
-            for="file-input"
-            className="primary-btn"
-          >Upload File</label>
-        </Box>
+          <label htmlFor="file-input" className="primary-btn">
+            Upload file
+          </label>
+        </Grid>
 
-        <Typography variant="h5" mb={1}>{groupName && (<strong>{groupName}</strong>)}</Typography>
-      </Stack>
+        <Grid item xs={12} sm={4}>
+          <Typography variant="h5">
+            {groupName && (<strong>{groupName}</strong>)}
+          </Typography>
+        </Grid>
+      </Grid>
 
       {!(participants.length > 0 && messageData.length > 0) && (
         <>
           <Typography>Please add a message.json file from Instagram</Typography>
-          <Typography> {'(Settings -> Accounts Center -> Your Information and permissions -> Download your information)'}</Typography>
+          <Typography>(Settings , Accounts Center , Your Information and permissions , Download your information)</Typography>
         </>
       )}
 
       {participants.length > 0 && messageData.length > 0 && (
         <>
-          <Box display={'flex'} justifyContent={'center'}>
-            <Grid container columns={{ xs: 3, sm: 6 }} maxWidth={'800px'}>
-              <Item item xs={3}>
+          <Grid container spacing={2} maxWidth="700px">
+            <Grid item xs={12} sm={6}>
+              <Item>
                 <Typography variant="h6">Messages by User</Typography>
-                {participantCounts.length > 0 ? ( // Add this condition to render PieChart only when data is available
+                {participantCounts.length > 0 ? (
                   <PieChart
                     label=" # of messages"
                     stats={participantCounts.map((participant) => participant.messageCount)}
@@ -163,18 +242,42 @@ function Visualiser() {
                   <Typography>Nothing to show</Typography>
                 )}
               </Item>
+            </Grid>
 
-              <Item item xs={3}>
+            <Grid item xs={8} sm={4}>
+              <Item>
+                <Typography variant="h6">Time of day</Typography>
+                {participantCounts.length > 0 ? (
+                  <Polar
+                    stats={messageTimes}
+                    names={["1am", "2am", "3am", "4am", "5am", "6am", "7am", "8am", "9am", "10am", "11am", "12pm", "1pm", "2pm", "3pm", "4pm", "5pm", "6pm", "7pm", "8pm", "9pm", "10pm", "11pm", "12am"]}
+                    colours={messageColors}
+                    accents={messageAccents}
+                  />
+                ) : (
+                  <Typography>Nothing to show</Typography>
+                )}
+              </Item>
+            </Grid>
+
+            <Grid item xs={4} sm={2}>
+              <Item onClick={handleUserList} sx={{ height: '100%' }}>
+                <Typography variant="h6">Big Day</Typography>
+                <Typography variant="body">1 Jan 2024</Typography>
+                <Typography variant="body">with</Typography>
+                <Typography variant="body">38 messages</Typography>
+              </Item>
+            </Grid>
+
+            <Grid item xs={12} sm={6}>
+              <Item>
                 <Typography variant="h6">Top {maxReactionsMessages.length === 1 ? ('Message') : ('Messages')}</Typography>
-                {maxReactionsMessages.length > 0 ? ( 
+                {maxReactionsMessages.length > 0 ? (
                   <>
-                    <Typography>{maxReactionsMessages.length === 1 ? ('This message ') : ('These messages ')}
-                      received {maxReactionsCount} reactions</Typography>
-
+                    <Typography>{maxReactionsMessages.length === 1 ? ('This message ') : ('These messages ')} received {maxReactionsCount} reactions</Typography>
                     <Box>
                       {maxReactionsMessages.map((message) => (
-                        <BestPost
-                          message={message} />
+                        <BestPost key={message.timestamp_ms} message={message} />
                       ))}
                     </Box>
                   </>
@@ -182,10 +285,10 @@ function Visualiser() {
                   <Typography>Nothing to show</Typography>
                 )}
               </Item>
+            </Grid>
 
-
-              <Item item xs={3}>
-                {/* <Typography>Average Reactions</Typography> */}
+            <Grid item xs={12} sm={6}>
+              <Item>
                 {participantCounts.length > 0 ? (
                   <BarChart
                     label=" Average reactions"
@@ -198,28 +301,54 @@ function Visualiser() {
                   <Typography>Nothing to show</Typography>
                 )}
               </Item>
+            </Grid>
 
-              <Item item xs={3}>
-              <Typography variant="h6">Time of day</Typography>
-
-                {participantCounts.length > 0 ? ( // Add this condition to render PieChart only when data is available
-                  <Polar
-                    stats={messageTimes}
-                    names={["1am", "2am", "3am", "4am", "5am", "6am", "7am", "8am", "9am", "10am", "11am", "12pm", "1pm", "2pm", "3pm", "4pm", "5pm", "6pm", "7pm", "8pm", "9pm", "10pm", "11pm", "12am"]}
-                    colours={messageColors}
-                    accents={messageAccents}
-                  />
+            <Grid item xs={4} sm={2}>
+              <Item onClick={handleReactions} sx={{ cursor: 'pointer' }}>
+                <Typography variant="h6">Top react</Typography>
+                {Object.keys(reactionCount).length > 1 ? (
+                  <Box textAlign="center">
+                    {mostUsedNonHeartReaction && (
+                      <Stack justifyContent={'center'}>
+                        <Typography variant="h6" justifyContent={'center'}>
+                          {decodeUtf8(mostUsedNonHeartReaction)}
+                        </Typography>
+                        <Typography variant="body" justifyContent={'center'}>
+                          {reactionCount[mostUsedNonHeartReaction]} uses
+                        </Typography>
+                      </Stack>
+                    )}
+                  </Box>
                 ) : (
-                    <Typography>Nothing to show</Typography>
-                  )}
+                  <Typography>Nothing to show</Typography>
+                )}
               </Item>
             </Grid>
-            </Box>
-            {participantCounts.map((participant, index) => (
-              <UserData
-                participant={participant}
-                index={index} />
-            ))}
+
+            <Grid item xs={4} sm={2}>
+              <Item onClick={handleUserList} sx={{ cursor: 'pointer' }}>
+                <Typography variant="h6">View all</Typography>
+                {Object.keys(reactionCount).length > 1 ? (
+                  <Box textAlign="center">
+                    {mostUsedNonHeartReaction && (
+                      <Stack justifyContent={'center'}>
+                        <Typography variant="h6" justifyContent={'center'} backgroundColor='#d9d9d9' borderRadius={100}>
+                          {participants.length}
+                        </Typography>
+                        <Typography variant="body" justifyContent={'center'}>
+                          users
+                        </Typography>
+                      </Stack>
+                    )}
+                  </Box>
+                ) : (
+                  <Typography>Nothing to show</Typography>
+                )}
+              </Item>
+            </Grid>
+          </Grid>
+
+          <DialogContainer open={open} handleClose={handleClose} title={dialogTitle} content={dialogContent}/>
         </>
       )}
     </div>

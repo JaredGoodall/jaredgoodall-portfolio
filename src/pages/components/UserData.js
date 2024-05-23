@@ -1,17 +1,15 @@
+import { Box, Typography } from '@mui/material';
 import React from 'react';
 
-function UserData({participant, index}) {
+function UserData({participant}) {
     return (
-        <div className='user-space'>
-            <div key={index} className="user-card">
-                <strong>Name:</strong> {participant.name} <br />
-                Total message count: {participant.messageCount}<br />
-                Average message reacts: {participant.messageCount === 0 ? (0) : (Math.round((participant.likedCount / participant.messageCount + Number.EPSILON) * 1000) / 1000)} <br />
-                Post count: {participant.postCount} <br />
-                Average post reacts: {participant.postCount === 0 ? 0 : Math.round((participant.postLikedCount / participant.postCount + Number.EPSILON) * 1000) / 1000} <br />
-            </div>
-            <br />
-        </div>
+      <Box minWidth={'40vw'} mb={2}>
+        <Typography><strong>{participant.name}</strong></Typography>
+        <Typography>Total message count: {participant.messageCount}</Typography>
+        <Typography>Average message reacts: {participant.messageCount === 0 ? (0) : (Math.round((participant.likedCount / participant.messageCount + Number.EPSILON) * 1000) / 1000)}</Typography>
+        <Typography>Post count: {participant.postCount} </Typography>
+        <Typography>Average post reacts: {participant.postCount === 0 ? 0 : Math.round((participant.postLikedCount / participant.postCount + Number.EPSILON) * 1000) / 1000}</Typography>
+      </Box>
     );
 }
 
