@@ -239,17 +239,16 @@ function Visualiser() {
           </Typography>
       </Stack>
 
-      {/* {!(participants.length > 0 && messageData.length > 0) && (
+      {!(participants.length > 0 && messageData.length > 0) && (
         <>
-          <Typography>Please add a message.json file from Instagram</Typography>
-          <Typography>(Settings , Accounts Center , Your Information and permissions , Download your information)</Typography>
+          <Typography>Work in progres</Typography>
         </>
-      )} */}
+      )}
 
       {participants.length > 0 && messageData.length > 0 && (
         <>
           <Grid container spacing={2} maxWidth="700px">
-            <Grid item xs={12} sm={6} rowSpan>
+            <Grid item xs={12} sm={6}>
               <Item>
                 <Typography variant="h6">Messages by User</Typography>
                 {participantCounts.length > 0 ? (
@@ -269,7 +268,7 @@ function Visualiser() {
             <Grid item xs={12} sm={6}>
               <Item onClick={maxReactionsMessages.length > 1 ? handleMaxReactions : null}>
                 {maxReactionsMessages.length > 0 ? (
-                  <>
+                  <Box textAlign="center">
                     <Typography variant="h6">Top {maxReactionsMessages.length === 1 ? ('Message') : ('Messages')} with {maxReactionsCount} reactions</Typography>
                     <Box>
                       {reactionsList.length === 1 ? (
@@ -278,7 +277,7 @@ function Visualiser() {
                         <Typography>View all {reactionsList.length} Messages</Typography>
                       )}
                     </Box>
-                  </>
+                  </Box>
                 ) : (
                   <Typography>Nothing to show</Typography>
                 )}
@@ -303,23 +302,24 @@ function Visualiser() {
 
             <Grid item xs={4} sm={2}>
               <Item height={'100%'}>
-                <Stack height={'100%'} alignItems={'center'} direction={'column'} spacing={2}>
+                <Stack height={'100%'} alignItems={'center'} direction={'column'}>
                   <Typography hy variant="h6">Time</Typography>
+                  <Stack alignItems={'center'} direction={'column'} spacing={2}>
+                    <Stack alignItems={'center'} direction={'column'}>
+                      <Typography>Best Day</Typography>
+                      <Typography><strong>{bigDay[0]}</strong></Typography>
+                      <Typography variant="body">{bigDay[1]}</Typography>
+                      <Typography variant="body">messages</Typography>
+                    </Stack>
 
-                  <Stack alignItems={'center'} direction={'column'}>
-                    <Typography>Best Day</Typography>
-                    <Typography><strong>{bigDay[0]}</strong></Typography>
-                    <Typography variant="body">{bigDay[1]}</Typography>
-                    <Typography variant="body">messages</Typography>
-                  </Stack>
-
-                  <Stack alignItems={'center'} direction={'column'}>
-                    <Typography>Best Time</Typography>
-                    <Typography variant="body"><strong>{["1am", "2am", "3am", "4am", "5am", "6am", "7am", "8am", "9am", "10am", "11am", "12pm", "1pm", "2pm", "3pm", "4pm", "5pm", "6pm", "7pm", "8pm", "9pm", "10pm", "11pm", "12am"][bigTimeIndex]}</strong></Typography>
-                    <Typography variant="body">
-                      {(messageTimes[bigTimeIndex] / messageTimes.reduce((partialSum, a) => partialSum + a, 0) * 100).toFixed(2)}% of
-                    </Typography>
-                    <Typography variant="body">messages</Typography>
+                    <Stack alignItems={'center'} direction={'column'}>
+                      <Typography>Best Time</Typography>
+                      <Typography variant="body"><strong>{["1am", "2am", "3am", "4am", "5am", "6am", "7am", "8am", "9am", "10am", "11am", "12pm", "1pm", "2pm", "3pm", "4pm", "5pm", "6pm", "7pm", "8pm", "9pm", "10pm", "11pm", "12am"][bigTimeIndex]}</strong></Typography>
+                      <Typography variant="body">
+                        {(messageTimes[bigTimeIndex] / messageTimes.reduce((partialSum, a) => partialSum + a, 0) * 100).toFixed(2)}% of
+                      </Typography>
+                      <Typography variant="body">messages</Typography>
+                    </Stack>
                   </Stack>
                 </Stack>
               </Item>
@@ -399,6 +399,23 @@ function Visualiser() {
                 )}
               </Item>
             </Grid>
+
+            <Grid item xs={4} sm={2}>
+                <Item onClick={handleUserList} sx={{ cursor: 'pointer' }} textAlign="center">
+                  <Typography>Average daily chats</Typography>
+                  {Object.keys(reactionCount).length > 1 ? (
+                    <Box textAlign="center">
+                      {messageData.length && (
+                        <Typography variant="h6" justifyContent={'center'}>
+                          {(messageData.length/Object.keys(messageDates).length).toFixed(2)}
+                        </Typography>
+                      )}
+                    </Box>
+                  ) : (
+                    <Typography>Nothing to show</Typography>
+                  )}
+                </Item>
+              </Grid>
           </Grid>
 
           <DialogContainer open={open} handleClose={handleClose} title={dialogTitle} content={dialogContent}/>
