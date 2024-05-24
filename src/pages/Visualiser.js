@@ -234,16 +234,14 @@ function Visualiser() {
           </label>
         </Box>
 
-          <Typography variant="h5">
-            {groupName && (<strong>{groupName}</strong>)}
-          </Typography>
-      </Stack>
+        <Typography variant="h5">
+          {groupName && (<strong>{groupName}</strong>)}
+        </Typography>
 
-      {!(participants.length > 0 && messageData.length > 0) && (
-        <>
-          <Typography>Work in progres</Typography>
-        </>
-      )}
+        {!(participants.length > 0 && messageData.length > 0) && (
+          <Typography>Work in progress</Typography>
+        )}
+      </Stack>
 
       {participants.length > 0 && messageData.length > 0 && (
         <>
@@ -274,7 +272,7 @@ function Visualiser() {
                       {reactionsList.length === 1 ? (
                         reactionsList
                       ) : (
-                        <Typography>View all {reactionsList.length} Messages</Typography>
+                        <Typography>View all <strong>{reactionsList.length}</strong> messages</Typography>
                       )}
                     </Box>
                   </Box>
