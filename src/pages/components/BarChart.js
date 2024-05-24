@@ -6,7 +6,6 @@ ChartJS.register(...registerables);
 
 function PieChart({ label, names, stats, colours, accents }) {
   const options = {
-    maintainAspectRatio: false,
     plugins: {
       legend: {
         display: false,

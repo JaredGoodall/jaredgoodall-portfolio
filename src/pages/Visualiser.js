@@ -128,6 +128,7 @@ function Visualiser() {
   let reactionCount = {};
   let maxReactionsCount = 0;
   let messageTimes = [];
+  let messageDates = {};
   let messageColors = []
   let messageAccents = []
   for (let i = 0; i < 24; i++) {
@@ -154,14 +155,24 @@ function Visualiser() {
       });
     }
 
-    const time = new Date(message.timestamp_ms).getHours();
+    const date = new Date(message.timestamp_ms);
 
-    messageTimes[time]++;
+    messageTimes[date.getHours()]++
+
+    if (messageDates[date.toLocaleDateString()]) {
+      messageDates[date.toLocaleDateString()]++;
+    } else {
+      messageDates[date.toLocaleDateString()] = 1;
+    }
   });
 
+  const bigDay = Object.entries(messageDates).reduce(
+    (max, entry) => (entry[1] > max[1] ? entry : max),
+    ["", 0]
+  );
+
   const sortedReactions = Object.keys(reactionCount)
-    .sort((a, b) => reactionCount[b] - reactionCount[a]);
-    
+    .sort((a, b) => reactionCount[b] - reactionCount[a]);    
 
   const hearts = ["\u00e2\u009d\u00a4", "\u00e2\u009d\u00a4\u00ef\u00b8\u008f" ]
 
@@ -260,21 +271,36 @@ function Visualiser() {
               </Item>
             </Grid>
 
+
+            <Grid item xs={8} sm={12}>
+              <Item>
+                <Typography variant="h6">Date</Typography>
+                {participantCounts.length > 0 ? (
+                  <BarChart
+                    names={Object.keys(messageDates).reverse()}
+                    stats={Object.values(messageDates).reverse()}
+                    label="Average reactions"
+                  />
+                ) : (
+                  <Typography>Nothing to show</Typography>
+                )}
+              </Item>
+            </Grid>
+
             <Grid item xs={4} sm={2}>
               <Item onClick={handleUserList} sx={{ height: '100%' }}>
-                <Typography variant="h6">Big Day</Typography>
-                <Typography variant="body">1 Jan 2024</Typography>
-                <Typography variant="body">with</Typography>
-                <Typography variant="body">38 messages</Typography>
+              <Typography variant="h6">Best Day</Typography>
+                <Typography><strong>{bigDay[0]}</strong></Typography>
+                <Typography variant="body">{bigDay[1]}</Typography>
+                <Typography variant="body">messages</Typography>
               </Item>
             </Grid>
 
             <Grid item xs={12} sm={6}>
               <Item>
-                <Typography variant="h6">Top {maxReactionsMessages.length === 1 ? ('Message') : ('Messages')}</Typography>
                 {maxReactionsMessages.length > 0 ? (
                   <>
-                    <Typography>{maxReactionsMessages.length === 1 ? ('This message ') : ('These messages ')} received {maxReactionsCount} reactions</Typography>
+                    <Typography variant="h6">Top {maxReactionsMessages.length === 1 ? ('Message') : ('Messages')} with {maxReactionsCount} reactions</Typography>
                     <Box>
                       {maxReactionsMessages.map((message) => (
                         <BestPost key={message.timestamp_ms} message={message} />
@@ -291,7 +317,7 @@ function Visualiser() {
               <Item>
                 {participantCounts.length > 0 ? (
                   <BarChart
-                    label=" Average reactions"
+                    label="Average reactions"
                     stats={participantCounts.map((participant) => participant.messageCount === 0 ? (0) : (Math.round((participant.likedCount / participant.messageCount + Number.EPSILON) * 1000) / 1000))}
                     names={participantCounts.map((participant) => participant.name)}
                     colours={participantCounts.map((participant) => participant.colour)}
