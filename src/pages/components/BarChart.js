@@ -11,6 +11,11 @@ function PieChart({ label, names, stats, colours, accents }) {
         display: false,
       },
     },
+    scales: {    
+      x: {  
+        display: false
+      }
+    }
   };
 
   const data = {

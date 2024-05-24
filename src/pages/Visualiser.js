@@ -198,17 +198,15 @@ function Visualiser() {
 
   return (
     <div className='content'>
-      <Grid container spacing={2} alignItems='center' mb={1}>
-        <Grid item xs={12} sm={4}>
+      <Stack gap={2} alignItems='center' direction={{ sx: 'column', sm: 'row', }} mb={2}>
           <img
             onClick={handleJaredGoodall}
             src={require("./images/visualiser-white.png")}
             className="logo invert"
             alt="Logo for DM Visualiser"
           />
-        </Grid>
 
-        <Grid item xs={12} sm={4}>
+        <Box>
           <input
             type="file"
             accept=".json"
@@ -219,26 +217,24 @@ function Visualiser() {
           <label htmlFor="file-input" className="primary-btn">
             Upload file
           </label>
-        </Grid>
+        </Box>
 
-        <Grid item xs={12} sm={4}>
           <Typography variant="h5">
             {groupName && (<strong>{groupName}</strong>)}
           </Typography>
-        </Grid>
-      </Grid>
+      </Stack>
 
-      {!(participants.length > 0 && messageData.length > 0) && (
+      {/* {!(participants.length > 0 && messageData.length > 0) && (
         <>
           <Typography>Please add a message.json file from Instagram</Typography>
           <Typography>(Settings , Accounts Center , Your Information and permissions , Download your information)</Typography>
         </>
-      )}
+      )} */}
 
       {participants.length > 0 && messageData.length > 0 && (
         <>
           <Grid container spacing={2} maxWidth="700px">
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12} sm={6} rowSpan>
               <Item>
                 <Typography variant="h6">Messages by User</Typography>
                 {participantCounts.length > 0 ? (
@@ -249,6 +245,23 @@ function Visualiser() {
                     colours={participantCounts.map((participant) => participant.colour)}
                     accents={participantCounts.map((participant) => participant.accentColour)}
                   />
+                ) : (
+                  <Typography>Nothing to show</Typography>
+                )}
+              </Item>
+            </Grid>
+
+            <Grid item xs={12} sm={6}>
+              <Item>
+                {maxReactionsMessages.length > 0 ? (
+                  <>
+                    <Typography variant="h6">Top {maxReactionsMessages.length === 1 ? ('Message') : ('Messages')} with {maxReactionsCount} reactions</Typography>
+                    <Box>
+                      {maxReactionsMessages.map((message) => (
+                        <BestPost key={message.timestamp_ms} message={message} />
+                      ))}
+                    </Box>
+                  </>
                 ) : (
                   <Typography>Nothing to show</Typography>
                 )}
@@ -271,8 +284,18 @@ function Visualiser() {
               </Item>
             </Grid>
 
+            <Grid item xs={4} sm={2}>
+              <Item height={'100%'}>
+                <Typography variant="h6">Best Day</Typography>
+                <Box height={'100%'} display={'flex'} alignItems={'center'} flexDirection={'column'}>
+                  <Typography><strong>{bigDay[0]}</strong></Typography>
+                  <Typography variant="body">{bigDay[1]}</Typography>
+                  <Typography variant="body">messages</Typography>
+                </Box>
+              </Item>
+            </Grid>
 
-            <Grid item xs={8} sm={12}>
+            <Grid item xs={12} sm={6}>
               <Item>
                 <Typography variant="h6">Date</Typography>
                 {participantCounts.length > 0 ? (
@@ -281,32 +304,6 @@ function Visualiser() {
                     stats={Object.values(messageDates).reverse()}
                     label="Average reactions"
                   />
-                ) : (
-                  <Typography>Nothing to show</Typography>
-                )}
-              </Item>
-            </Grid>
-
-            <Grid item xs={4} sm={2}>
-              <Item onClick={handleUserList} sx={{ height: '100%' }}>
-              <Typography variant="h6">Best Day</Typography>
-                <Typography><strong>{bigDay[0]}</strong></Typography>
-                <Typography variant="body">{bigDay[1]}</Typography>
-                <Typography variant="body">messages</Typography>
-              </Item>
-            </Grid>
-
-            <Grid item xs={12} sm={6}>
-              <Item>
-                {maxReactionsMessages.length > 0 ? (
-                  <>
-                    <Typography variant="h6">Top {maxReactionsMessages.length === 1 ? ('Message') : ('Messages')} with {maxReactionsCount} reactions</Typography>
-                    <Box>
-                      {maxReactionsMessages.map((message) => (
-                        <BestPost key={message.timestamp_ms} message={message} />
-                      ))}
-                    </Box>
-                  </>
                 ) : (
                   <Typography>Nothing to show</Typography>
                 )}
