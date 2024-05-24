@@ -8,7 +8,7 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
-import { Box } from '@mui/material';
+import { Box, Stack } from '@mui/material';
 
 export default function DialogContainer({ open, handleClose, title, content }) {
   const theme = useTheme();
@@ -27,11 +27,13 @@ export default function DialogContainer({ open, handleClose, title, content }) {
       </DialogTitle>
       <DialogContent>
         <DialogContentText>
-          {content.map((item, index) => (
-            <Box key={index}>
-              {item}
-            </Box>
-          ))}
+          <Stack direction='column' spacing={1}>
+            {content.map((item, index) => (
+              <Box key={index}>
+                {item}
+              </Box>
+            ))}
+          </Stack>
         </DialogContentText>
       </DialogContent>
       <DialogActions>

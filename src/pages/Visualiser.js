@@ -78,6 +78,12 @@ function Visualiser() {
     setOpen(true)
   }
 
+  const handleMaxReactions = () => {
+    setDialogTitle('Top reacted messages - ' + maxReactionsCount + ' reactions')
+    setDialogContent(reactionsList)
+    setOpen(true)
+  }
+  
   const handleFileUpload = (e) => {
     const file = e.target.files[0];
  
@@ -171,6 +177,11 @@ function Visualiser() {
     ["", 0]
   );
 
+  const bigTimeIndex = messageTimes.reduce(
+    (maxIndex, currentValue, currentIndex, array) => currentValue > array[maxIndex] ? currentIndex : maxIndex,
+    0
+  );
+
   const sortedReactions = Object.keys(reactionCount)
     .sort((a, b) => reactionCount[b] - reactionCount[a]);    
 
@@ -195,6 +206,10 @@ function Visualiser() {
       )) 
     )
   ) : null;
+
+  const reactionsList = maxReactionsMessages.map((message) => (
+    <BestPost key={message.timestamp_ms} message={message} />
+  ))
 
   return (
     <div className='content'>
@@ -252,14 +267,16 @@ function Visualiser() {
             </Grid>
 
             <Grid item xs={12} sm={6}>
-              <Item>
+              <Item onClick={maxReactionsMessages.length > 1 ? handleMaxReactions : null}>
                 {maxReactionsMessages.length > 0 ? (
                   <>
                     <Typography variant="h6">Top {maxReactionsMessages.length === 1 ? ('Message') : ('Messages')} with {maxReactionsCount} reactions</Typography>
                     <Box>
-                      {maxReactionsMessages.map((message) => (
-                        <BestPost key={message.timestamp_ms} message={message} />
-                      ))}
+                      {reactionsList.length === 1 ? (
+                        reactionsList
+                      ) : (
+                        <Typography>View all {reactionsList.length} Messages</Typography>
+                      )}
                     </Box>
                   </>
                 ) : (
@@ -286,12 +303,25 @@ function Visualiser() {
 
             <Grid item xs={4} sm={2}>
               <Item height={'100%'}>
-                <Typography variant="h6">Best Day</Typography>
-                <Box height={'100%'} display={'flex'} alignItems={'center'} flexDirection={'column'}>
-                  <Typography><strong>{bigDay[0]}</strong></Typography>
-                  <Typography variant="body">{bigDay[1]}</Typography>
-                  <Typography variant="body">messages</Typography>
-                </Box>
+                <Stack height={'100%'} alignItems={'center'} direction={'column'} spacing={2}>
+                  <Typography hy variant="h6">Time</Typography>
+
+                  <Stack alignItems={'center'} direction={'column'}>
+                    <Typography>Best Day</Typography>
+                    <Typography><strong>{bigDay[0]}</strong></Typography>
+                    <Typography variant="body">{bigDay[1]}</Typography>
+                    <Typography variant="body">messages</Typography>
+                  </Stack>
+
+                  <Stack alignItems={'center'} direction={'column'}>
+                    <Typography>Best Time</Typography>
+                    <Typography variant="body"><strong>{["1am", "2am", "3am", "4am", "5am", "6am", "7am", "8am", "9am", "10am", "11am", "12pm", "1pm", "2pm", "3pm", "4pm", "5pm", "6pm", "7pm", "8pm", "9pm", "10pm", "11pm", "12am"][bigTimeIndex]}</strong></Typography>
+                    <Typography variant="body">
+                      {(messageTimes[bigTimeIndex] / messageTimes.reduce((partialSum, a) => partialSum + a, 0) * 100).toFixed(2)}% of
+                    </Typography>
+                    <Typography variant="body">messages</Typography>
+                  </Stack>
+                </Stack>
               </Item>
             </Grid>
 

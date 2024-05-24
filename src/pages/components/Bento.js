@@ -63,7 +63,7 @@ function Bento() {
     <Box sx={{ p: margin, height: '100vh' }}>
       <Box className='App' sx={{ minHeight: '100%', width: '100%' }}>
         <Grid container rowSpacing={4} columnSpacing={2} columns={{ sm: 1, md: 9 }}>
-          <Grid item sm={1} md={3} sx={{ height: `calc(100vh - ${margin} - ${margin})` }}>
+          <Grid item sm={1} md={3} sx={{ minHeight: `calc(100vh - ${margin} - ${margin})` }}>
             <Item sx={{ height: '100%' }} >
               <Stack direction={'column'} textAlign={'center'} alignItems="center" justify="center">
                 <h1 style={{ marginBottom: 0 }} >Jared Goodall</h1>
