@@ -401,7 +401,7 @@ function Visualiser() {
             </Grid>
 
             <Grid item xs={4} sm={2}>
-                <Item onClick={handleUserList} sx={{ cursor: 'pointer' }} textAlign="center">
+                <Item sx={{ cursor: 'pointer' }} textAlign="center">
                   <Typography>Average daily chats</Typography>
                   {Object.keys(reactionCount).length > 1 ? (
                     <Box textAlign="center">
