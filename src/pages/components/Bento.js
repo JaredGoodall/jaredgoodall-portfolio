@@ -3,7 +3,8 @@ import { styled } from '@mui/material/styles';
 import { Box, Paper, Grid, Stack, IconButton, Chip, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import goobdoobs from '../images/goobdoobs.png';
-import visualiserWhite from '../images/visualiser-white.png';
+import visualiserBlack from '../images/visualiser-black.png';
+import oddsOnLogo from '../images/oddsOnLogo.png';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
@@ -62,8 +63,13 @@ function Bento() {
   return (
     <Box sx={{ p: margin, height: '100vh' }}>
       <Box className='App' sx={{ minHeight: '100%', width: '100%' }}>
-        <Grid container rowSpacing={4} columnSpacing={2} columns={{ sm: 1, md: 9 }}>
-          <Grid item sm={1} md={3} sx={{ minHeight: `calc(100vh - ${margin} - ${margin})` }}>
+      <Grid container rowSpacing={4} columnSpacing={2} columns={{ sm: 1, md: 9 }}>
+          <Grid item sm={1} md={3} sx={{ 
+              height: `calc(100vh - ${margin} - ${margin})`,
+              // position: 'sticky',
+              // top: `-${margin}`,
+            }}
+          >
             <Item sx={{ height: '100%' }} >
               <Stack direction={'column'} textAlign={'center'} alignItems="center" justify="center">
                 <h1 style={{ marginBottom: 0 }} >Jared Goodall</h1>
@@ -135,7 +141,7 @@ function Bento() {
                   <Stack direction="row" sx={{ m: 2 }} gap={2}>
                     <Box>
                       <img
-                        src={visualiserWhite}
+                        src={visualiserBlack}
                         className="logo invert"
                         alt="Logo for DM Visualiser"
                       />
@@ -148,6 +154,28 @@ function Bento() {
                     </Box>
                   </Stack>
                 </Item>
+              </Grid>
+
+              <Grid item>
+                <a href='https://github.com/JaredGoodall/50-50' style={{ textDecoration: 'none' }}>
+                  <Item>
+                    <Stack direction="row" sx={{ m: 2 }} gap={2}>
+                      <Box>
+                        <img
+                          src={oddsOnLogo}
+                          className="logo invert"
+                          alt="Logo for 50-50"
+                        />
+                      </Box>
+                      <Box>
+                        <h2>50-50</h2>
+                        <p>
+                          React Native mobile "game" which gives a 50% chance of success and 50% chance of failure.
+                        </p>
+                      </Box>
+                    </Stack>
+                  </Item>
+                </a>
               </Grid>
 
               <Grid item>
