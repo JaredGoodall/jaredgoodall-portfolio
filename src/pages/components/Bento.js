@@ -6,7 +6,6 @@ import goobdoobs from '../images/goobdoobs.png';
 import visualiserBlack from '../images/visualiser-black.png';
 import oddsOnLogo from '../images/oddsOnLogo.png';
 import GitHubIcon from '@mui/icons-material/GitHub';
-import InstagramIcon from '@mui/icons-material/Instagram';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -39,7 +38,8 @@ function Bento() {
     'HTML',
     'CSS',
     'R',
-    'Microsoft Excel Associate Certification',
+    'Excel Associate Certified',
+    'Cyber Security',
     'Sandboxing + VMs',
     'Intrustion Detection Systems',
   ]
@@ -50,10 +50,6 @@ function Bento() {
 
   const handleLinkedIn = () => {
     window.location.href = 'https://www.linkedin.com/in/jaredgoodall/';
-  };
-
-  const handleInstagram = () => {
-    window.location.href = 'https://www.instagram.com/jared.goodall/';
   };
 
   const handleGitHub = () => {
@@ -82,9 +78,6 @@ function Bento() {
                     <LinkedInIcon onClick={handleLinkedIn} />
                   </IconButton>
                   <IconButton>
-                    <InstagramIcon onClick={handleInstagram} />
-                  </IconButton>
-                  <IconButton>
                     <GitHubIcon onClick={handleGitHub} />
                   </IconButton>
                 </Stack>
@@ -92,9 +85,8 @@ function Bento() {
                   Computer Science & Commerce (Finance) @ UNSW
                 </h3>
                 <p style={{ marginBottom: 10, marginTop: 5 }}>
-                  I am passionate about using technology to drive creative innovation within business and
-                  software. I am deeply motivated to launch my career and immerse myself in the world of
-                  technology to make tangible impacts.
+                  This website aims to be a collection of projects I have worked on over time.
+                  Many of the early stage projects I plan on making a reality, so stay tuned
                 </p>
                 <h4 style={{ marginBottom: 15, marginTop: 5 }}>
                   Techinal Skills
@@ -170,7 +162,7 @@ function Bento() {
                       <Box>
                         <h2>50-50</h2>
                         <p>
-                          React Native mobile "game" which gives a 50% chance of success and 50% chance of failure.
+                        <b>GitHub Repo</b> - React Native mobile "game" which gives a 50% chance of success and 50% chance of failure. 
                         </p>
                       </Box>
                     </Stack>
@@ -185,7 +177,7 @@ function Bento() {
                   </Box>
                   <Box>
                     <h2>Note taking and Todo App</h2>
-                    <p><b>Under development: </b>React Native app that consolidates my favourite things - note taking and todo lists</p>
+                    <p>React Native app that consolidates my favourite things - note taking and todo lists</p>
                   </Box>
                   </Stack>
                 </Item>
@@ -197,8 +189,8 @@ function Bento() {
                     <Box>
                     </Box>
                     <Box>
-                      <h2>Sets and Reps App</h2>
-                      <p><b>Not even started: </b>Mobile App to better understand your gym progress</p>
+                      <h2>Sets and Reps</h2>
+                      <p>Reactjs Mobile App to better understand your gym progress</p>
                     </Box>
                   </Stack>
                 </Item>
@@ -210,12 +202,26 @@ function Bento() {
                     <Box>
                     </Box>
                     <Box>
-                      <h2>Dropzone / Pinned</h2>
-                      <p><b>No chance: </b>Social media app focused on experiences, not stuff</p>
+                      <h2>Dropzone</h2>
+                      <p>Social media app focused on experiences, not stuff</p>
                     </Box>
                   </Stack>
                 </Item>
               </Grid>
+
+              <Grid item>
+                <Item>
+                  <Stack direction="row" sx={{ m: 2 }} gap={2}>
+                    <Box>
+                    </Box>
+                    <Box>
+                      <h2>Finance Calculator</h2>
+                      <p>Graphing and calculation tool aiming to simply and clearly show financial concepts</p>
+                    </Box>
+                  </Stack>
+                </Item>
+              </Grid>
+
               <Grid item display={'flex'} justifyContent={'center'}>
                 <Item sx={{ mb: 3 }}>
                   <Typography fontSize={'1em'}>. . .</Typography>
