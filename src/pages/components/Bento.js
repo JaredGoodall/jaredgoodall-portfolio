@@ -82,11 +82,11 @@ function Bento() {
                   </IconButton>
                 </Stack>
                 <h3 style={{ marginBottom: 5, marginTop: 5 }}>
-                  Computer Science & Commerce (Finance) @ UNSW
+                  Computer Science & Commerce (Finance)
                 </h3>
                 <p style={{ marginBottom: 10, marginTop: 5 }}>
                   This website aims to be a collection of projects I have worked on over time.
-                  Many of the early stage projects I plan on making a reality, so stay tuned
+                  I have been a bit distracted from this recently, but I'll get ther one day.
                 </p>
                 <h4 style={{ marginBottom: 15, marginTop: 5 }}>
                   Techinal Skills
@@ -141,7 +141,7 @@ function Bento() {
                     <Box>
                       <h2>IG Visualiser</h2>
                       <p>
-                        Takes a messages JSON file from Instagram and displays some metrics about it.
+                        Parses JSON file generated through Instagram and visualises key metrics about it.
                       </p>
                     </Box>
                   </Stack>
@@ -170,7 +170,7 @@ function Bento() {
                 </a>
               </Grid>
 
-              <Grid item>
+              {/* <Grid item>
                 <Item>
                 <Stack direction="row" sx={{ m: 2 }} gap={2}>
                   <Box>
@@ -220,7 +220,7 @@ function Bento() {
                     </Box>
                   </Stack>
                 </Item>
-              </Grid>
+              </Grid> */}
 
               <Grid item display={'flex'} justifyContent={'center'}>
                 <Item sx={{ mb: 3 }}>
