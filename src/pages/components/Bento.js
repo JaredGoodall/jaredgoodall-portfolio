@@ -38,9 +38,10 @@ function Bento() {
     'HTML',
     'CSS',
     'R',
-    'Excel Associate Certified',
-    'Cyber Security',
-    'Sandboxing + VMs',
+    'Software Engineering',
+    'Git',
+    'Agile Development',
+    'Sandboxing',
     'Intrustion Detection Systems',
   ]
 
