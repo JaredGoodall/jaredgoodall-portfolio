@@ -135,7 +135,7 @@ function Bento() {
                     <Box>
                       <img
                         src={visualiserBlack}
-                        className="logo invert"
+                        className="logo"
                         alt="Logo for DM Visualiser"
                       />
                     </Box>
